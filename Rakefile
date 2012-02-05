@@ -69,13 +69,13 @@ task :default => name
 
 Rake::Builder.new do | builder |
   builder.task_namespace       = "#{ name }_test".intern
-  builder.target               = "active_record_#{ name }_test"
+  builder.target               = "./active_record_#{ name }_test"
   builder.architecture         = ARCHITECTURE
   builder.source_search_paths  = TEST_SOURCE_SEARCH_PATHS
   builder.header_search_paths  = [ 'test' ]
   builder.objects_path         = "test/objects/#{ TEST_OBJECTS_PATH }"
   builder.include_paths        = [ 'include', 'test' ]
-  builder.library_dependencies = configuration[ :libs ] + [ "active_record_#{ name }" ] #'gtest', 
+  builder.library_dependencies = configuration[ :libs ] + [ 'gtest', "active_record_#{ name }" ]
   builder.library_paths        = [ "." ]
   builder.target_prerequisites = [ :"rake:#{ name }" ]
   builder.default_task         = [ :run ]
