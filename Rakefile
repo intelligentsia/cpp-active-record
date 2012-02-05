@@ -73,6 +73,9 @@ end
 task :default => name
 
 Rake::Builder.new do | builder |
+  compilation_options          = [ "-DDATABASE=#{ DATABASE }" ]
+  compilation_options          += [ "-DPG_USER=#{ ENV[ 'PG_USER' ] }" ] if DATABASE == 'postgresql' && ENV[ 'PG_USER' ]
+
   builder.task_namespace       = "#{ name }_test".intern
   builder.target               = "./active_record_#{ name }_test"
   builder.architecture         = ARCHITECTURE
@@ -84,5 +87,6 @@ Rake::Builder.new do | builder |
   builder.library_paths        = [ "." ]
   builder.target_prerequisites = [ :"rake:#{ name }" ]
   builder.default_task         = [ :run ]
+  builder.compilation_options  = compilation_options
 end
 
