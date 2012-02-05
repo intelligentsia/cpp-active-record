@@ -1,9 +1,11 @@
-.DS_Store
 *.o
 *depend.mf
 *.a
 *.sqlite3
+.DS_Store
 .rake-builder*
+.session.vim
+active_record_*_test
 objects
 test/objects
 test/test.sqlite3
