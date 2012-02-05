@@ -1,19 +1,19 @@
 #include "test_helper.h"
 #include <active_record/query.h>
 
-extern string database_file;
+extern string database_name;
 
 class QueryTest : public ::testing::Test {
  protected:
   virtual void SetUp() {
     delete_database();
-    connect_database( connection, database_file );
+    connect_database( connection, database_name );
     Person::setup( &connection );
     connection.update_database();
-    pipe_to_sqlite( database_file, "INSERT INTO people (name, surname, age, height) VALUES (\"Joe\", \"Yates\", 45, 1.80);" );
-    pipe_to_sqlite( database_file, "INSERT INTO people (name, surname, age, height) VALUES (\"Joe\", \"Smith\", 45, 1.80);" );
-    pipe_to_sqlite( database_file, "INSERT INTO people (name, surname, age, height) VALUES (\"John\", \"Smith\", 67, 1.80);" );
-    pipe_to_sqlite( database_file, "INSERT INTO people (name, surname, age, height) VALUES (\"Frank\", \"Smith\", 45, 1.79);" );
+    pipe_to_sqlite( database_name, "INSERT INTO people (name, surname, age, height) VALUES (\"Joe\", \"Yates\", 45, 1.80);" );
+    pipe_to_sqlite( database_name, "INSERT INTO people (name, surname, age, height) VALUES (\"Joe\", \"Smith\", 45, 1.80);" );
+    pipe_to_sqlite( database_name, "INSERT INTO people (name, surname, age, height) VALUES (\"John\", \"Smith\", 67, 1.80);" );
+    pipe_to_sqlite( database_name, "INSERT INTO people (name, surname, age, height) VALUES (\"Frank\", \"Smith\", 45, 1.79);" );
   }
   virtual void TearDown() {
     delete_database();

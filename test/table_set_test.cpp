@@ -1,14 +1,14 @@
 #include "test_helper.h"
 #include <active_record/table.h>
 
-extern string database_file;
+extern string database_name;
 
 class TableSetTest : public ::testing::Test {
  protected:
   virtual void SetUp() {
     connection.connect( options
                         ( "adapter", "sqlite" )
-                        ( "database", database_file ) );
+                        ( "database", database_name ) );
   }
   virtual void TearDown() {
     delete_database();
@@ -22,7 +22,7 @@ TEST_F( TableSetTest, TableCreation ) {
 
   TableSet::create_table( td );
 
-  assert_file_non_zero_length( database_file );
+  assert_file_non_zero_length( database_name );
 }
 
 TEST_F( TableSetTest, UpdateDatabase ) {
@@ -44,10 +44,10 @@ class ReadSchemaTest : public ::testing::Test {
  protected:
   virtual void SetUp() {
     delete_database();
-    pipe_to_sqlite( database_file, "CREATE TABLE foo (bar INTEGER, baz TEXT, qux FLOAT, derp DATE);" );
+    pipe_to_sqlite( database_name, "CREATE TABLE foo (bar INTEGER, baz TEXT, qux FLOAT, derp DATE);" );
     connection.connect( options
                                       ( "adapter", "sqlite" )
-                                      ( "database", database_file ) );
+                                      ( "database", database_name ) );
   }
   virtual void TearDown() {
     delete_database();
@@ -71,7 +71,7 @@ class TableSetCreateTableTest : public ::testing::Test {
  protected:
   virtual void SetUp() {
     delete_database();
-    connect_database( connection, database_file );
+    connect_database( connection, database_name );
   }
   virtual void TearDown() {
     delete_database();
@@ -112,8 +112,8 @@ class TableSetUpdateDatabaseTest : public ::testing::Test {
  protected:
   virtual void SetUp() {
     delete_database();
-    pipe_to_sqlite( database_file, "CREATE TABLE foo (bar INTEGER);" );
-    connect_database( connection, database_file );
+    pipe_to_sqlite( database_name, "CREATE TABLE foo (bar INTEGER);" );
+    connect_database( connection, database_name );
   }
   virtual void TearDown() {
     delete_database();
