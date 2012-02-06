@@ -13,7 +13,7 @@ class ConnectionTest : public ::testing::Test {
 };
 
 TEST_F( ConnectionTest, ConnectNewDatabase ) {
-  Connection connection;
+  Sqlite3Connection connection;
   connection.connect( options
                       ( "adapter", "sqlite" )
                       ( "database", database_name ) );
@@ -22,7 +22,7 @@ TEST_F( ConnectionTest, ConnectNewDatabase ) {
 
 TEST_F( ConnectionTest, ConnectExistingDatabase ) {
   pipe_to_sqlite( database_name, "CREATE TABLE foo (bar INTEGER);" );
-  Connection connection;
+  Sqlite3Connection connection;
   ASSERT_NO_THROW( {
       connection.connect( options
                           ( "adapter", "sqlite" )
@@ -36,7 +36,7 @@ class ConnectionQueryTest : public ::testing::Test {
     delete_database();
   }
  protected:
-  Connection connection;
+  Sqlite3Connection connection;
 };
 
 TEST_F( ConnectionQueryTest, Execute ) {
