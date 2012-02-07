@@ -61,7 +61,7 @@ end
 Rake::Builder.new do | builder |
   builder.target               = "libactive_record_#{ name }.a"
   builder.architecture         = ARCHITECTURE
-  builder.source_search_paths  = [ 'src' ]
+  builder.source_search_paths  = [ 'src', 'src/connection' ]
   builder.header_search_paths  = [ 'include/**/*.h' ]
   builder.objects_path         = "objects/#{ name }"
   builder.include_paths        = [ 'include' ]
@@ -79,7 +79,7 @@ Rake::Builder.new do | builder |
   builder.target               = "./active_record_#{ name }_test"
   builder.architecture         = ARCHITECTURE
   builder.source_search_paths  = TEST_SOURCE_SEARCH_PATHS
-  builder.header_search_paths  = [ 'test' ]
+  builder.header_search_paths  = [ 'test', 'test/connection' ]
   builder.objects_path         = "test/objects/#{ TEST_OBJECTS_PATH }"
   builder.include_paths        = [ 'include', 'test' ]
   builder.library_dependencies = configuration[ :libs ] + [ 'gtest', "active_record_#{ name }" ]
