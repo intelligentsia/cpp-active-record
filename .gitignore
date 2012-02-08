@@ -4,6 +4,7 @@
 *.sqlite3
 .DS_Store
 .rake-builder*
+.rvmrc
 .session.vim
 active_record_*_test
 objects
